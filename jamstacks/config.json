@@ -1,0 +1,19 @@
+{
+  "name": "Saffron & Monsoon",
+  "description": "A rich Indian restaurant theme in saffron, turmeric and deep teal with block-print pattern borders: a regional curry menu with heat and dietary tags, thali sets drawn plate by plate, opening hours, location and a Jamstacks contact component for group tables, celebrations and private dining.",
+  "tech": "next",
+  "type": "indian",
+  "style": "spice",
+  "internal": false,
+  "components": [
+    "support-form"
+  ],
+  "configFile": "site.config.json",
+  "screenshots": {
+    "light": "jamstacks/home-light.jpg",
+    "dark": "jamstacks/home-dark.jpg",
+    "theme": {
+      "strategy": "media"
+    }
+  }
+}

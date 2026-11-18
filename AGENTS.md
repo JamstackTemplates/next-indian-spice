@@ -72,3 +72,26 @@ and Pages never import/read it. Keep site.config.json, the form and workflow out
 light/dark captures after a fresh normal build and run node --test jamstacks/config.test.mjs separately.
 Each new template needs its own business-led layout/fonts/art and OG image; do not ship the neutral
 starter as a final design. Remove `plan/` and `.claude/skills/` before publishing a gallery template once reviewed.
+
+## This website: Saffron & Monsoon
+
+Gallery template `next-indian-spice`, a fictitious regional Indian restaurant. Design concept:
+“Block print and brass thali”. File ownership for future edits:
+
+- `content/business.ts`: contact details, address, opening hours (`Europe/London`, same-day only), last
+  orders, heat-scale labels, private room and enquiry copy.
+- `content/menu.ts`: sections and dishes with `validateMenu`. `kind: 'region'` sections supply katoris;
+  each region has exactly one `signature` dish shown on Home. `gravy` colours the katori art.
+- `content/thalis.ts`: thali sets with `validateThalis` and `thaliFacts`. Never type dietary tags or heat
+  on a thali; they are derived from its katori dishes. A sold-out katori dish shows a swap note.
+- `lib/menu-filter.ts`: heat ceiling and diet filters plus the `?heat=`/`?diet=` query format.
+- Page copy lives in `app/**/page.tsx` as children of named components in `components/home.tsx`,
+  `components/thali-set.tsx`, `components/visit.tsx` and `components/menu-notes.tsx`.
+- Artwork lives in `components/art/`: `thali-plate.tsx` (the signature plate, drawn from data; katori
+  highlight rules in `tailwind.input.css`), `scenes.tsx` (jharokha hero, masala dabba, handi, rain cloud,
+  eat-step vignettes, logo mark), `print.tsx` (buta, toran, lotus and rain borders; region stamps) and
+  `icons.tsx`. Art colours come from CSS tokens so both themes keep their character.
+- Tests: `tests/menu.test.ts`, `tests/thalis.test.ts`, `tests/hours.test.ts` (London hours and DST),
+  `tests/contrast.test.ts` (WCAG AA for token pairs) and `tests/content.test.ts` (enquiry wording,
+  allergen notes, sitemap, schema). Copy must never mention online ordering, delivery, deposits,
+  payment or “booked” tables.

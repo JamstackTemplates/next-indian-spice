@@ -29,3 +29,40 @@ test('invalid/incomplete/overnight intervals name the weekday to fix', () => {
   assert.throws(() => validateHours(hours.slice(1)), /Monday/);
   assert.throws(() => validateHours(hours.map(x => x.day === 'Tuesday' ? { ...x, closes: undefined } : x)), /Tuesday/);
 });
+
+// Saffron & Monsoon's own hours in Europe/London.
+import { business } from '../content/business.ts';
+import { zonedDay } from '../lib/hours.ts';
+const london = (iso: string) => openingLabel(business.hours, 'Europe/London', new Date(iso));
+test('restaurant hours: Tuesday opens at 12:00 and closes at 22:30; Monday is closed', () => {
+  assert.doesNotThrow(() => validateHours(business.hours));
+  assert.equal(london('2026-11-17T11:59:00Z'), 'Closed · opens today at 12:00');
+  assert.equal(london('2026-11-17T12:00:00Z'), 'Open now · until 22:30');
+  assert.equal(london('2026-11-17T22:30:00Z'), 'Closed · opens Wednesday at 12:00');
+  for (const time of ['00:00', '12:00', '18:30', '23:59']) {
+    assert.equal(london(`2026-11-16T${time}:00Z`), 'Closed · opens Tuesday at 12:00', `Monday ${time}`);
+  }
+});
+test('restaurant hours: Friday is open at 22:59 and closed at 23:00', () => {
+  assert.equal(london('2026-11-20T22:59:00Z'), 'Open now · until 23:00');
+  assert.equal(london('2026-11-20T23:00:00Z'), 'Closed · opens Saturday at 12:00');
+});
+test('Saturday 12:00 opening holds across the London DST changes', () => {
+  // 28 March 2026 is GMT; 4 April is BST (clocks change 29 March).
+  assert.equal(london('2026-03-28T11:59:00Z'), 'Closed · opens today at 12:00');
+  assert.equal(london('2026-03-28T12:00:00Z'), 'Open now · until 23:00');
+  assert.equal(london('2026-04-04T10:59:00Z'), 'Closed · opens today at 12:00');
+  assert.equal(london('2026-04-04T11:00:00Z'), 'Open now · until 23:00');
+  // 24 October is BST; 31 October is GMT (clocks change 25 October).
+  assert.equal(london('2026-10-24T11:00:00Z'), 'Open now · until 23:00');
+  assert.equal(london('2026-10-31T11:59:00Z'), 'Closed · opens today at 12:00');
+  assert.equal(london('2026-10-31T12:00:00Z'), 'Open now · until 23:00');
+});
+test('overnight hours are rejected for the restaurant data', () => {
+  assert.throws(() => validateHours(business.hours.map(day => day.day === 'Saturday' ? { ...day, closes: '01:00' } : day)), /Saturday/);
+});
+test('today’s row uses the business zone, not the visitor’s', () => {
+  assert.equal(zonedDay('Europe/London', new Date('2026-11-17T23:30:00Z')), 'Tuesday');
+  assert.equal(zonedDay('Asia/Tokyo', new Date('2026-11-17T23:30:00Z')), 'Wednesday');
+  assert.equal(zonedDay('', new Date()), undefined);
+});

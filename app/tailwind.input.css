@@ -1,112 +1,392 @@
 @import 'tailwindcss';
 @custom-variant dark (&:where(.dark, .dark *));
 
+/*
+ * Saffron & Monsoon: "Ghee, chilli and brass inside; monsoon outside".
+ * Colours come from the food and the table: ghee and turmeric grounds, Kashmiri-chilli maroon for the
+ * lamp-lit dining room, saffron, banana leaf, brass and copper, rani pink from the rangoli at the door.
+ * Monsoon teal is kept for the rain beyond the window and the night outside (the footer).
+ * Saffron and turmeric are fills: text on them is always clove ink.
+ */
 :root {
-  --bg: #f7f8fa;
-  --surface: #ffffff;
-  --text: #172033;
-  --muted: #526078;
-  --accent: #2457a7;
-  --accent-ink: #2457a7;
-  --on-accent: #ffffff;
-  --line: #c7cfdb;
-  --focus: #2457a7;
-  --map-filter: none;
+  --bg: #fcf0da;
+  --surface: #fff8ea;
+  --raised: #f7e1bb;
+  --text: #2b140c;
+  --muted: #6d4733;
+  --rule: #d3a462;
+  --primary: #a3261a;
+  --primary-hover: #841b11;
+  --on-primary: #ffffff;
+  --link: #9a2416;
+  --saffron: #ec8a1f;
+  --turmeric: #e9b420;
+  --chilli: #b3261e;
+  --leaf: #3f7a2e;
+  --rani: #b8336a;
+  --teal: #0f5257;
+  --focus: #0f5257;
+  /* Lamp-lit maroon bands: header, featured thali, Contact card, group-table band. */
+  --band: #5c1810;
+  --band-deep: #44110a;
+  --band-text: #fcf0da;
+  --band-muted: #ecc9ad;
+  --band-accent: #f4c14a;
+  /* Monsoon night outside: the footer. */
+  --night: #0f4a4f;
+  --night-text: #fcf0da;
+  --night-muted: #cfe0d8;
+  --night-accent: #f4c14a;
+  --rain: #7db9b3;
+  /* Artwork: brass and copper tableware, block-print cloth, banana leaf, clay, sky and stone. */
+  --brass: #c79a3b;
+  --brass-light: #e9cb7c;
+  --brass-dark: #8a6324;
+  --art-line: #2b140c;
+  --cloth: #f6e2bc;
+  --cloth-print: #a3261a;
+  --leaf-light: #74a94b;
+  --leaf-dark: #2c5c20;
+  --clay: #c0643a;
+  --clay-dark: #8a3f1f;
+  --sky: #0f5257;
+  --sky-light: #2c7a78;
+  --cloud: #d4e6df;
+  --sun: #f0a03a;
+  --stone: #e6a764;
+  --stone-dark: #b4612c;
+  --steel: #d3d5ce;
+  --steel-dark: #8e948a;
+  --copper: #b5653a;
+  --copper-dark: #7e3f1e;
+  --rice: #fffaf0;
+  --dot: rgb(163 38 26 / .12);
+  --weave: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='46' height='46'%3E%3Cg fill-opacity='.16'%3E%3Ccircle cx='5' cy='7' r='1.1' fill='%23e9b420'/%3E%3Ccircle cx='31' cy='4' r='.8' fill='%23a3261a'/%3E%3Ccircle cx='22' cy='19' r='1.3' fill='%23ec8a1f'/%3E%3Ccircle cx='41' cy='27' r='.9' fill='%236d4733'/%3E%3Ccircle cx='12' cy='33' r='.7' fill='%23a3261a'/%3E%3Ccircle cx='35' cy='41' r='1.2' fill='%23e9b420'/%3E%3Ccircle cx='3' cy='22' r='.6' fill='%233f7a2e'/%3E%3C/g%3E%3Cpath d='M0 .5h46M.5 0v46' stroke='%232b140c' stroke-opacity='.035'/%3E%3C/svg%3E");
+  --map-filter: sepia(.3) saturate(.95);
   color-scheme: light;
 }
 @media (prefers-color-scheme: dark) {
- :root:not(.light) {
-  --bg: #141923;
-  --surface: #1e2633;
-  --text: #f1f5fa;
-  --muted: #b5c2d5;
-  --accent: #2457a7;
-  --accent-ink: #a9cbff;
-  --on-accent: #ffffff;
-  --line: #61708a;
-  --focus: #a9cbff;
-  --map-filter: grayscale(.4) brightness(.8);
-  color-scheme: dark;
- }
+  :root:not(.light) {
+    --bg: #1c0e09;
+    --surface: #28150e;
+    --raised: #361d13;
+    --text: #f8e8cc;
+    --muted: #cdae8f;
+    --rule: #5e3d27;
+    --primary: #b3301f;
+    --primary-hover: #c13a28;
+    --on-primary: #ffffff;
+    --link: #f4c14a;
+    --saffron: #f2a03c;
+    --turmeric: #f4c14a;
+    --chilli: #ff7d63;
+    --leaf: #8cc06a;
+    --rani: #f07aa5;
+    --teal: #4fa6a0;
+    --focus: #f4c14a;
+    --band: #3a0f08;
+    --band-deep: #2a0904;
+    --band-text: #f8e8cc;
+    --band-muted: #dcbd9e;
+    --band-accent: #f4c14a;
+    --night: #071a1c;
+    --night-text: #f8e8cc;
+    --night-muted: #b7c4bc;
+    --night-accent: #f4c14a;
+    --rain: #3f7f7a;
+    --brass: #bb8e37;
+    --brass-light: #dcbb68;
+    --brass-dark: #6e4e1c;
+    --art-line: #170b06;
+    --cloth: #3a2015;
+    --cloth-print: #f2a03c;
+    --leaf-light: #5f9640;
+    --leaf-dark: #23491a;
+    --clay: #a8562f;
+    --clay-dark: #6c3015;
+    --sky: #071a1c;
+    --sky-light: #12403f;
+    --cloud: #2a5553;
+    --sun: #f4e3a8;
+    --stone: #a8612d;
+    --stone-dark: #6f3a18;
+    --steel: #a7aea8;
+    --steel-dark: #646e69;
+    --copper: #9c5530;
+    --copper-dark: #5e2d14;
+    --rice: #f3ead7;
+    --dot: rgb(244 193 74 / .08);
+    --weave: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='46' height='46'%3E%3Cg fill-opacity='.2'%3E%3Ccircle cx='5' cy='7' r='1.1' fill='%23f4c14a'/%3E%3Ccircle cx='31' cy='4' r='.8' fill='%23f2a03c'/%3E%3Ccircle cx='22' cy='19' r='1.3' fill='%23f2a03c'/%3E%3Ccircle cx='41' cy='27' r='.9' fill='%23cdae8f'/%3E%3Ccircle cx='12' cy='33' r='.7' fill='%23ff8a6c'/%3E%3Ccircle cx='35' cy='41' r='1.2' fill='%23f4c14a'/%3E%3Ccircle cx='3' cy='22' r='.6' fill='%238cc06a'/%3E%3C/g%3E%3Cpath d='M0 .5h46M.5 0v46' stroke='%23f8e8cc' stroke-opacity='.025'/%3E%3C/svg%3E");
+    --map-filter: grayscale(.3) brightness(.8) sepia(.3);
+    color-scheme: dark;
+  }
 }
 :root.dark {
-  --bg: #141923;
-  --surface: #1e2633;
-  --text: #f1f5fa;
-  --muted: #b5c2d5;
-  --accent: #2457a7;
-  --accent-ink: #a9cbff;
-  --on-accent: #ffffff;
-  --line: #61708a;
-  --focus: #a9cbff;
-  --map-filter: grayscale(.4) brightness(.8);
-  color-scheme: dark;
+    --bg: #1c0e09;
+    --surface: #28150e;
+    --raised: #361d13;
+    --text: #f8e8cc;
+    --muted: #cdae8f;
+    --rule: #5e3d27;
+    --primary: #b3301f;
+    --primary-hover: #c13a28;
+    --on-primary: #ffffff;
+    --link: #f4c14a;
+    --saffron: #f2a03c;
+    --turmeric: #f4c14a;
+    --chilli: #ff7d63;
+    --leaf: #8cc06a;
+    --rani: #f07aa5;
+    --teal: #4fa6a0;
+    --focus: #f4c14a;
+    --band: #3a0f08;
+    --band-deep: #2a0904;
+    --band-text: #f8e8cc;
+    --band-muted: #dcbd9e;
+    --band-accent: #f4c14a;
+    --night: #071a1c;
+    --night-text: #f8e8cc;
+    --night-muted: #b7c4bc;
+    --night-accent: #f4c14a;
+    --rain: #3f7f7a;
+    --brass: #bb8e37;
+    --brass-light: #dcbb68;
+    --brass-dark: #6e4e1c;
+    --art-line: #170b06;
+    --cloth: #3a2015;
+    --cloth-print: #f2a03c;
+    --leaf-light: #5f9640;
+    --leaf-dark: #23491a;
+    --clay: #a8562f;
+    --clay-dark: #6c3015;
+    --sky: #071a1c;
+    --sky-light: #12403f;
+    --cloud: #2a5553;
+    --sun: #f4e3a8;
+    --stone: #a8612d;
+    --stone-dark: #6f3a18;
+    --steel: #a7aea8;
+    --steel-dark: #646e69;
+    --copper: #9c5530;
+    --copper-dark: #5e2d14;
+    --rice: #f3ead7;
+    --dot: rgb(244 193 74 / .08);
+    --weave: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='46' height='46'%3E%3Cg fill-opacity='.2'%3E%3Ccircle cx='5' cy='7' r='1.1' fill='%23f4c14a'/%3E%3Ccircle cx='31' cy='4' r='.8' fill='%23f2a03c'/%3E%3Ccircle cx='22' cy='19' r='1.3' fill='%23f2a03c'/%3E%3Ccircle cx='41' cy='27' r='.9' fill='%23cdae8f'/%3E%3Ccircle cx='12' cy='33' r='.7' fill='%23ff8a6c'/%3E%3Ccircle cx='35' cy='41' r='1.2' fill='%23f4c14a'/%3E%3Ccircle cx='3' cy='22' r='.6' fill='%238cc06a'/%3E%3C/g%3E%3Cpath d='M0 .5h46M.5 0v46' stroke='%23f8e8cc' stroke-opacity='.025'/%3E%3C/svg%3E");
+    --map-filter: grayscale(.3) brightness(.8) sepia(.3);
+    color-scheme: dark;
 }
 
 @theme {
   --color-*: initial;
-  --font-sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  --radius-ui: .375rem;
+  --font-sans: 'Hind', 'Segoe UI', system-ui, sans-serif;
+  --font-display: 'Rozha One', Georgia, 'Times New Roman', serif;
+  --font-accent: 'Yatra One', 'Rozha One', Georgia, serif;
+  --radius-ui: .25rem;
 }
 @theme inline {
   --color-bg: var(--bg);
   --color-surface: var(--surface);
+  --color-raised: var(--raised);
   --color-ink: var(--text);
   --color-muted: var(--muted);
-  --color-accent: var(--accent);
-  --color-accent-ink: var(--accent-ink);
-  --color-on-accent: var(--on-accent);
-  --color-line: var(--line);
+  --color-rule: var(--rule);
+  --color-line: var(--rule);
+  --color-primary: var(--primary);
+  --color-primary-hover: var(--primary-hover);
+  --color-on-primary: var(--on-primary);
+  --color-accent: var(--primary);
+  --color-accent-ink: var(--link);
+  --color-on-accent: var(--on-primary);
+  --color-link: var(--link);
+  --color-saffron: var(--saffron);
+  --color-turmeric: var(--turmeric);
+  --color-chilli: var(--chilli);
+  --color-leaf: var(--leaf);
+  --color-band: var(--band);
+  --color-band-deep: var(--band-deep);
+  --color-band-text: var(--band-text);
+  --color-band-muted: var(--band-muted);
+  --color-band-accent: var(--band-accent);
+  --color-brass: var(--brass);
+  --color-rani: var(--rani);
+  --color-teal: var(--teal);
+  --color-night: var(--night);
+  --color-night-text: var(--night-text);
+  --color-night-muted: var(--night-muted);
+  --color-night-accent: var(--night-accent);
+  --color-clove: #2a1a12;
 }
 :root {
-  --measure: 42rem;
+  --measure: 40rem;
+  --header-h: 4.5rem;
   --jamstacks-font-family: var(--font-sans);
   --jamstacks-color-text: var(--text);
   --jamstacks-color-background: var(--surface);
-  --jamstacks-color-primary: var(--accent);
-  --jamstacks-color-border: var(--line);
+  --jamstacks-color-primary: var(--primary);
+  --jamstacks-color-border: var(--rule);
   --jamstacks-color-muted: var(--muted);
-  --jamstacks-color-link: var(--accent-ink);
+  --jamstacks-color-link: var(--link);
   --jamstacks-border-radius: var(--radius-ui);
-  --jamstacks-control-height: 2.75rem;
+  --jamstacks-control-height: 2.9rem;
   --jamstacks-spacing: 1rem;
   --jamstacks-form-max-width: 40rem;
-  --jamstacks-toggle-color: var(--text);
-  --jamstacks-toggle-dark-color: var(--text);
-  --jamstacks-toggle-border: var(--line);
-  --jamstacks-toggle-background: var(--surface);
-  --jamstacks-toggle-dark-background: var(--surface);
-  --jamstacks-toggle-focus-color: var(--focus);
+  /* The toggle sits on the maroon header in both themes. */
+  --jamstacks-toggle-color: #fcf0da;
+  --jamstacks-toggle-dark-color: #f8e8cc;
+  --jamstacks-toggle-border: rgb(244 193 74 / .55);
+  --jamstacks-toggle-background: #44110a;
+  --jamstacks-toggle-dark-background: #2a0904;
+  --jamstacks-toggle-focus-color: #f4c14a;
 }
+
 @layer base {
-  html { background: var(--bg); color: var(--text); font-family: var(--font-sans); scroll-padding-top: 1.5rem; }
-  body { margin: 0; line-height: 1.6; }
-  main { min-height: 65vh; }
-  a { text-underline-offset: .2em; }
+  html {
+    background: var(--bg) var(--weave);
+    color: var(--text);
+    font-family: var(--font-sans);
+    font-size: 1.0625rem;
+    scroll-padding-top: 5rem;
+    -webkit-text-size-adjust: 100%;
+  }
+  body { margin: 0; line-height: 1.6; text-rendering: optimizeLegibility; }
+  main { min-height: 65vh; display: block; }
+  main:focus { outline: none; }
+  h1, h2, h3 { font-family: var(--font-display); font-weight: 400; line-height: 1.04; letter-spacing: -.005em; text-wrap: balance; }
+  a { color: inherit; text-underline-offset: .22em; text-decoration-thickness: 1px; }
   a:hover { text-decoration: underline; }
-  button { cursor: pointer; }
-  :focus-visible { outline: 3px solid var(--focus); outline-offset: 4px; }
-  [aria-current="page"] { text-decoration: underline; }
+  button { cursor: pointer; font: inherit; }
+  :focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; border-radius: 2px; }
+  ::selection { background: var(--turmeric); color: #2b140c; }
 }
-@utility wrap { width: min(100% - 2rem, 72rem); margin-inline: auto; }
+
+@utility wrap { width: min(100% - 2rem, 76rem); margin-inline: auto; }
+@utility tabular { font-variant-numeric: tabular-nums lining-nums; }
+
+/* Cotton panel, dabu (resist-print) dot fields and pinked edges, as utilities so they take responsive variants. */
+@utility cloth { background-color: var(--surface); background-image: var(--weave); }
+@utility dabu { background-image: radial-gradient(circle, var(--dot) 1.4px, transparent 1.8px), var(--weave); background-size: 15px 15px, auto; }
+@utility dabu-offset { background-image: radial-gradient(circle, var(--dot) 1.4px, transparent 1.8px), radial-gradient(circle, var(--dot) 1.4px, transparent 1.8px); background-size: 22px 22px; background-position: 0 0, 11px 11px; }
+/* Pinked (zig-zag) top and bottom edges, like cloth cut with pinking shears. */
+@utility pinked {
+  --tooth: 18px;
+  mask: conic-gradient(from 135deg at top, #0000, #000 1deg 89deg, #0000 90deg) top / var(--tooth) 51% repeat-x,
+        conic-gradient(from -45deg at bottom, #0000, #000 1deg 89deg, #0000 90deg) bottom / var(--tooth) 51% repeat-x;
+}
+@utility pinked-bottom {
+  --tooth: 18px;
+  mask: linear-gradient(#000 0 0) top / 100% calc(100% - var(--tooth) / 2) no-repeat,
+        conic-gradient(from -45deg at bottom, #0000, #000 1deg 89deg, #0000 90deg) bottom / var(--tooth) 51% repeat-x;
+}
+
 @layer components {
-  .button { display: inline-flex; align-items: center; justify-content: center; min-height: 2.75rem; padding: .6rem 1.2rem; border: 1px solid var(--accent); border-radius: var(--radius-ui); background: var(--accent); color: var(--on-accent); font-weight: 600; text-decoration: none; }
-  .button:hover { text-decoration: underline; }
-  .button-quiet { background: var(--surface); color: var(--accent-ink); border-color: var(--line); }
-  .text-link { color: var(--accent-ink); text-decoration: underline; }
-  .eyebrow { font-size: .8rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
-  .skip-link { position: absolute; left: 1rem; top: -8rem; padding: .75rem; z-index: 200; background: var(--surface); }
+  /* Primary fill carries white text in both themes; the saffron offset is a block-print misregistration. */
+  .button {
+    display: inline-flex; align-items: center; justify-content: center; gap: .55rem;
+    min-height: 3rem; padding: .7rem 1.35rem .55rem;
+    border: 2px solid var(--primary); border-radius: var(--radius-ui);
+    background: var(--primary); color: var(--on-primary);
+    font-weight: 600; font-size: 1.04rem; line-height: 1.1; text-decoration: none;
+    box-shadow: 4px 4px 0 var(--turmeric);
+    transition: transform .15s ease, box-shadow .15s ease, background-color .15s ease;
+  }
+  .button:hover { background: var(--primary-hover); border-color: var(--primary-hover); text-decoration: none; transform: translate(-1px, -1px); box-shadow: 5px 5px 0 var(--turmeric); }
+  .button:active { transform: translate(2px, 2px); box-shadow: 1px 1px 0 var(--turmeric); }
+  .button-quiet { background: transparent; color: var(--text); border-color: currentColor; box-shadow: 4px 4px 0 var(--saffron); }
+  .button-quiet:hover { background: var(--raised); border-color: currentColor; }
+  .text-link { color: var(--link); text-decoration: underline; text-decoration-thickness: 1.5px; font-weight: 500; }
+  .text-link:hover { text-decoration-thickness: 2.5px; }
+  .eyebrow {
+    display: inline-flex; align-items: center; gap: .55rem;
+    font-size: .82rem; font-weight: 600; letter-spacing: .18em; text-transform: uppercase; color: var(--muted);
+  }
+  .eyebrow::before { content: ''; width: .55rem; height: .55rem; background: var(--saffron); transform: rotate(45deg); box-shadow: 2px 2px 0 var(--primary); flex: none; }
+  .skip-link { position: absolute; left: 1rem; top: -8rem; padding: .75rem 1rem; z-index: 200; background: var(--turmeric); color: #2a1a12; font-weight: 600; }
   .skip-link:focus { top: 1rem; }
+
+  /* Lamp-lit maroon band, warmed by a faint glow from above, and the monsoon-night footer. */
+  .band {
+    background-color: var(--band); color: var(--band-text); --link: var(--band-accent); --muted: var(--band-muted); --focus: var(--band-accent);
+    background-image: radial-gradient(ellipse 60% 55% at 50% 0%, rgb(244 193 74 / .14), transparent 70%), var(--weave);
+  }
+  .night { background-color: var(--night); color: var(--night-text); --link: var(--night-accent); --muted: var(--night-muted); --focus: var(--night-accent); }
+  .band .button-quiet { color: var(--band-text); }
+
+  /* Hand-painted signboard stamp: Yatra One inside a double rule, tilted as if pressed by hand. */
+  .stamp {
+    display: inline-block; padding: .2rem .55rem .05rem;
+    font-family: var(--font-accent); font-size: .92rem; line-height: 1.35; letter-spacing: .01em;
+    color: var(--chilli); border: 3px double currentColor; border-radius: 3px; transform: rotate(-2.5deg);
+    white-space: nowrap;
+  }
+  .stamp-monsoon { color: var(--teal); }
+  .stamp-rani { color: var(--rani); }
+
+  /* Menu line: dish name, dotted leader, price. */
+  .leader { flex: 1; min-width: 1.5rem; border-bottom: 2px dotted var(--rule); transform: translateY(-.32em); }
+  .price { font-family: var(--font-display); font-variant-numeric: lining-nums; }
 }
-.map iframe { width: 100%; min-height: 20rem; border: 0; filter: var(--map-filter); }
+
+/* Thali plates: the katori lifts when its dish is hovered or focused in the list beside the plate. */
+.thali-katori { transform-box: fill-box; transform-origin: center; transition: transform .25s ease; }
+.thali-katori .katori-ring { opacity: 0; transition: opacity .2s ease; }
+.thali:has([data-k="0"]:is(:hover, :focus-within)) .thali-katori[data-k="0"],
+.thali:has([data-k="1"]:is(:hover, :focus-within)) .thali-katori[data-k="1"],
+.thali:has([data-k="2"]:is(:hover, :focus-within)) .thali-katori[data-k="2"],
+.thali:has([data-k="3"]:is(:hover, :focus-within)) .thali-katori[data-k="3"],
+.thali:has([data-k="4"]:is(:hover, :focus-within)) .thali-katori[data-k="4"] { transform: scale(1.1) translateY(-3%); }
+.thali:has([data-k="0"]:is(:hover, :focus-within)) .thali-katori[data-k="0"] .katori-ring,
+.thali:has([data-k="1"]:is(:hover, :focus-within)) .thali-katori[data-k="1"] .katori-ring,
+.thali:has([data-k="2"]:is(:hover, :focus-within)) .thali-katori[data-k="2"] .katori-ring,
+.thali:has([data-k="3"]:is(:hover, :focus-within)) .thali-katori[data-k="3"] .katori-ring,
+.thali:has([data-k="4"]:is(:hover, :focus-within)) .thali-katori[data-k="4"] .katori-ring { opacity: 1; }
+.thali-dish[data-k] { transition: background-color .2s ease; }
+.thali-dish[data-k]:is(:hover, :focus-within) { background-color: color-mix(in srgb, var(--turmeric) 22%, transparent); }
+
+/* Motion: monsoon rain, steam and the stamp press. All disabled under reduced motion. */
+@keyframes rain-fall { from { transform: translate(0, -24px); } to { transform: translate(-8px, 0); } }
+@keyframes rain-sheet-fall { from { transform: translate(0, 0); } to { transform: translate(-140.8px, 440px); } }
+@keyframes rain-splash {
+  0%, 100% { opacity: 0; transform: scale(.4); }
+  25% { opacity: .85; transform: scale(1); }
+  60% { opacity: 0; transform: scale(1.25); }
+}
+@keyframes steam-rise { 0% { opacity: 0; transform: translateY(8px); } 40% { opacity: .9; } 100% { opacity: 0; transform: translateY(-22px); } }
+@keyframes stamp-press { from { opacity: 0; transform: scale(1.18) rotate(-4deg); } to { opacity: 1; transform: none; } }
+@keyframes flame-flicker { 0%, 100% { transform: scale(1, 1) rotate(-2deg); } 30% { transform: scale(.94, 1.08) rotate(2deg); } 60% { transform: scale(1.04, .95) rotate(-1deg); } }
+@keyframes garland-sway { 0%, 100% { transform: rotate(-3deg); } 50% { transform: rotate(3deg); } }
+.flame { animation: flame-flicker 1.4s ease-in-out infinite; transform-box: fill-box; transform-origin: 50% 100%; }
+.sway { animation: garland-sway 4s ease-in-out infinite; transform-box: fill-box; transform-origin: 50% 0; }
+.rain-layer { animation: rain-fall 1.6s linear infinite; }
+.rain-layer.slow { animation-duration: 2.6s; }
+.rain-sheet { animation: rain-sheet-fall 2.4s linear infinite; }
+.rain-sheet--far { animation-duration: 3.6s; }
+.rain-sheet--near { animation-duration: 1.65s; }
+.rain-splash { animation: rain-splash 1.8s ease-out infinite; transform-box: fill-box; transform-origin: 50% 100%; }
+.steam { animation: steam-rise 3.6s ease-in-out infinite; transform-box: fill-box; }
+.steam:nth-child(2) { animation-delay: 1.2s; }
+.steam:nth-child(3) { animation-delay: 2.4s; }
+@supports (animation-timeline: view()) {
+  .press-in { animation: stamp-press .5s cubic-bezier(.3, 1.4, .5, 1) both; animation-timeline: view(); animation-range: entry 0% entry 60%; }
+}
+
+.map iframe { display: block; width: 100%; min-height: 22rem; border: 0; filter: var(--map-filter); }
 .enquiry__host { display: block; }
 .enquiry__status { margin-top: 1rem; color: var(--muted); }
 .enquiry[data-state="present"] > .enquiry__status { display: none; }
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
 }
+
 @media print {
-  nav, .skip-link, .enquiry, button { display: none !important; }
-  html { background: white; color: black; }
-  a { color: inherit; }
+  nav, .skip-link, .enquiry, button, .no-print, .map, [data-art] { display: none !important; }
+  html, body { background: white !important; color: black !important; font-size: 11pt; }
+  .band, .cloth, .dabu, .dabu-offset { background: none !important; color: black !important; }
+  .pinked, .pinked-bottom { mask: none !important; }
+  a { color: inherit; text-decoration: none; }
+  .button { box-shadow: none; border: 1px solid black; background: none; color: black; }
+  .stamp { border-width: 1px; color: black; transform: none; }
+  .menu-panel { break-inside: avoid; border: 0 !important; padding: 0 !important; box-shadow: none !important; }
+  .menu-panels { display: block !important; columns: 2; column-gap: 2rem; }
+  .menu-line { break-inside: avoid; }
 }

@@ -45,3 +45,12 @@ export function openingLabel(hours: readonly OpeningHours[], timeZone: string, n
   }
   return 'Closed · see opening hours';
 }
+
+/** The weekday in the business zone, for highlighting today's row in the browser. Undefined when unknown. */
+export function zonedDay(timeZone: string, now = new Date()): Day | undefined {
+  if (!timeZone) return undefined;
+  try {
+    const weekday = new Intl.DateTimeFormat('en-US', { timeZone, weekday: 'long' }).format(now);
+    return DAYS.find(day => day === weekday);
+  } catch { return undefined; }
+}

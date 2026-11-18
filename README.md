@@ -1,84 +1,105 @@
-# JamstackTemplates Next.js starter
+# Saffron & Monsoon: Indian restaurant template
 
-The shared starter for Next.js templates in the `JamstackTemplates` organization. Its canonical home is
-`JamstackTemplates/template-next`, alongside the templates generated from it.
-It is not a gallery design or a published demo. Business content is sample content. No application code
-in a website created from this template depends on the starter checkout or the portal repository.
+A static Next.js website for a regional Indian restaurant, built from the JamstackTemplates starter and
+published in the Jamstacks gallery as `next-indian-spice`. Saffron & Monsoon is fictitious: its email,
+phone and address (Granary Square, a public landmark in King’s Cross) are sample details to replace.
+No application code depends on the starter checkout or the portal repository.
 
-## Build your website
+The design is **“Block print and brass thali”**: hand-carved block-print borders on mulmul cotton, brass
+thali plates and monsoon rain over deep teal. Light mode is sunlit cotton; dark mode is “monsoon night”.
+All artwork is inline SVG drawn for this site; there is no photography.
 
-Start in the checkout of the repository GitHub created from `JamstackTemplates/template-next`. All
-starter files are already present. Local development requires Node 24 or later and npm.
+## Build or preview
 
-To build a new site, fill in `plan/PLAN.md`, then tell the coding agent **`Implement plan/PLAN.md`**.
-In Claude Code, `/write-plan <business description>` drafts the brief for you. For a gallery template,
-pass the table row: `/write-plan next-type-style | Business | Description | Form purpose`.
-After reviewing the finished site, run `/cleanup-plan` or delete `plan/` and `.claude/skills/` by hand
-to remove all initial build instructions.
+Local development requires Node 24 or later and npm. Run `npm ci`, then `npm run dev`, or
+`npm run build && npm start` to preview the static export.
 
-To preview locally, run `npm ci` and `npm run dev` from the repository root.
+The `plan/` folder and `.claude/skills/` held the initial build brief. Once the site has been reviewed,
+run `/cleanup-plan` or delete both folders by hand. The website never reads them.
 
 ## Pages
 
 | Route | Purpose |
 | --- | --- |
-| `/` | Minimal content-driven home page and Organization JSON-LD |
-| `/contact/` | Hosted support form when configured; visible email alternative |
-| `/404.html` | Friendly static error page |
+| `/` | Hero with the jharokha scene, “Find us tonight”, the eight regional kitchens, the featured thali, the heat guide and gatherings; Restaurant JSON-LD |
+| `/menu/` | The regional curry menu with heat and diet filters, allergen and price notes |
+| `/thali/` | The four thali sets, each drawn as its plate, and how to eat a thali |
+| `/visit/` | Address, open-now badge, hours board, map, getting here and access |
+| `/contact/` | Hosted enquiry form when configured; email and phone always visible |
+| `/404.html` | “This plate’s been cleared.” |
 
 ## Make it yours
 
 | File | Owns |
 | --- | --- |
-| `content/business.ts` | Shared business name, contact details and starter sample copy |
-| `app/page.tsx`, `app/<route>/page.tsx` | Page composition and editable copy such as headings and calls to action |
-| `content/menu.ts` or `content/services.ts` (add when needed) | Industry-specific typed collections |
-| `site.config.json` | Public name, description, hostname, optional timeZone and Jamstacks integration |
-| `app/tailwind.input.css` | Theme tokens, utility mappings and small shared styles |
-| `components/site-header.tsx`, `site-footer.tsx` | Replaceable navigation and visual shell |
-| `lib/structured-data.ts` | Schema type/properties derived from real content |
+| `content/business.ts` | Name, contact details, address, opening hours, last orders, heat-scale labels, private room and enquiry copy |
+| `content/menu.ts` | Menu sections (regions plus breads, rice & sides) and every dish: price, heat, dietary tags, gravy colour, availability |
+| `content/thalis.ts` | Thali sets: price, the menu dishes in each katori, accompaniments, days served, the featured thali |
+| `app/page.tsx`, `app/<route>/page.tsx` | Page composition and editable copy such as headings, introductions and button labels |
+| `site.config.json` | Public name, description, hostname, time zone and Jamstacks integration |
+| `app/tailwind.input.css` | Palette tokens (light, automatic dark, explicit dark), textures, buttons, stamps and motion |
+| `components/art/` | The SVG artwork: thali plate, jharokha scene, borders, region stamps, dabba, handi, icons |
+| `components/site-header.tsx`, `site-footer.tsx` | Navigation and the themed shell |
+| `lib/structured-data.ts` | Restaurant schema derived from content |
 | `app/sitemap.ts` | Public routes; update when adding a page |
 
-Edit page copy in the route file, for example `<Hero.Heading>Seasonal flowers</Hero.Heading>`
-in `app/page.tsx` for the Home page. The backing
-component owns the styling and interactions. Use typed fields for data the site needs to look up or
-reuse. For example, change `business.email` to update Contact. Rename in `business.name` and
-`site.config.json.name`. Add a typed core-content file for frequent owner edits: a food menu should use
-the existing sections/items/price/availability model; changes such as sold out, seasonal or a new section
-should be data edits with actionable content tests. Do not add business content to configuration: the
-Jamstacks provisioner replaces that file wholesale, possibly adding `provisioningId`.
+### Common edits
 
-## Appearance and optional local-business features
+Each of these is a single data edit. Run `npm test` afterwards: a mistake fails with a message that names
+the dish, section or thali to fix.
 
-The starter uses system fonts, neutral Tailwind v4 tokens and the published `jamstacks` package's
-ThemeProvider, ThemeScript and DarkModeToggle. No font download or font licence file is needed for
-system fonts. Each designed template chooses and documents self-hosted font packages and their licences.
-Utilities live in components; colours originate in CSS tokens with light, automatic-dark and explicit-dark
-values plus `@theme inline` mappings. Keep the hosted form's primary fill dark enough for white text.
-Keyboard focus, reduced motion and print styles are included. The footer credit is yours to keep,
-reword or remove.
+- **Sold out today:** set `available: false` on the dish in `content/menu.ts`. It stays on the menu,
+  struck through with a “Sold out today” stamp. Any thali using it shows “One dish is swapped today”.
+- **Seasonal dish:** set `seasonal: true` for the “Monsoon special” stamp, or remove the dish when the season ends
+  (take it out of any thali’s `katoris` first).
+- **Price or heat:** change `pricePence` (whole pence, 250–3000) or `heat` (0–4). Thali heat and dietary tags
+  are worked out from their dishes, so they update automatically.
+- **Swap a thali dish:** edit the thali’s `katoris` in `content/thalis.ts`. Only regional curries can go in a katori,
+  3–5 per thali; the plate redraws with the new gravy colours.
+- **Hours:** edit `hours` in `content/business.ts`. Services must open and close on the same day; overnight
+  hours are rejected.
+- **Page copy:** edit the text between component tags, for example
+  `<Hero.Heading>Eight kitchens. <em>One brass plate.</em></Hero.Heading>` in `app/page.tsx`.
 
-For a business with visiting hours, add address/directions/hours to typed content, set the IANA `timeZone`
-in site.config.json and use optional `GoogleMap`, `TimeZoneNote` and `OpenBadge` components. GoogleMap
-accepts an address and descriptive title; map helpers need no key. `OpenBadge` accepts seven
-`OpeningHours` records, uses the business zone and refreshes each minute in the browser; static/no-JS
-output is neutral. Same-day intervals only: overnight hours fail validation and need a tested extension
-before use. The baseline home page does not load a map or assert opening hours.
+Rename in both `business.name` and `site.config.json`’s `name`. Do not put business content in
+`site.config.json`: the Jamstacks provisioner replaces that file wholesale, possibly adding `provisioningId`.
+
+## Appearance
+
+Fonts are self-hosted from npm and licensed under the SIL Open Font License 1.1:
+
+| Font | Package | Use |
+| --- | --- | --- |
+| Rozha One | `@fontsource/rozha-one` | Headings, wordmark, dish names, prices and numerals |
+| Hind (400, 500, 600) | `@fontsource/hind` | Body text, labels and tables |
+| Yatra One | `@fontsource/yatra-one` | Stamps such as “Sold out today”, “Monsoon special” and the 404 heading |
+
+Colours originate in CSS tokens with light, automatic-dark and explicit-dark values plus `@theme inline`
+mappings. Saffron and turmeric are fills only; text on them is clove ink. The primary teal carries white
+button text in both themes, and `tests/contrast.test.ts` checks the key pairs against WCAG AA. The theme
+toggle comes from the published `jamstacks` package. Keyboard focus, a skip link, reduced motion (the rain,
+steam and stamp press stop) and print styles (the menu prints as a plain two-column list) are included.
+
+The open-now badge and the hours table’s “today” row are computed in the browser in `Europe/London`
+(from `site.config.json`) and refresh every minute. Static and no-JavaScript output shows the neutral
+“Opening hours” and the full table. The menu filters (heat ceiling and diet, mirrored in `?heat=` and `?diet=`)
+appear only with JavaScript; without it every dish is listed and the region links still work. The map
+on Visit uses the inherited keyless Google embed.
 
 ## Public configuration
 
 ```json
 {
-  "name": "Business name",
-  "description": "Public description",
-  "domain": "next-business-minimal.jamstacks.net",
-  "timeZone": "America/New_York",
+  "name": "Saffron & Monsoon",
+  "description": "Saffron & Monsoon cooks regional curries from eight Indian kitchens …",
+  "domain": "next-indian-spice.jamstacks.net",
+  "timeZone": "Europe/London",
   "jamstacks": { "siteId": "", "cdnUrl": "https://cdn.jamstacks.net" }
 }
 ```
 
-The starter itself leaves domain/timeZone unset. Gallery templates use their folder name plus
-`.jamstacks.net`; customers replace the demo domain with their own. Do not invent canonical URLs when
+This gallery template uses its folder name plus `.jamstacks.net` as the demo domain; customers replace
+it with their own. Do not invent canonical URLs when
 the deployed address is unknown.
 
 | Environment variable | Public build-time meaning |
@@ -116,8 +137,9 @@ PAGES_BASE_PATH=/preview PAGES_BASE_URL=https://owner.github.io/preview npm run 
 npm start -- --base /preview --port 3000
 ```
 
-Tests cover config/provisioner compatibility, embed state, content rules, optional opening hours,
-and structured-data escaping. Typecheck uses Next's generated route types.
+Tests cover config/provisioner compatibility, embed state, menu and thali validation (each failure names
+the dish or thali), derived thali tags, the menu filters, opening hours across London's DST changes,
+WCAG contrast of the theme tokens, sitemap routes, enquiry wording and Restaurant structured data. Typecheck uses Next's generated route types.
 When changing the Contact integration, base paths or canonical URLs, check the exported HTML and
 sitemap. Verify both configured and unconfigured Contact with the corresponding build settings.
 Test light/dark at desktop and mobile widths, keyboard navigation, unknown routes, repeated Contact
@@ -154,8 +176,7 @@ node /home/mythz/src/mythz/jamstacks.net/tools/template-screenshots/capture.mjs 
 node --test jamstacks/config.test.mjs
 ```
 
-Before publication: replace neutral content and shell; validate industry data/schema and all links;
-choose licensed fonts; verify both themes/base-path/embed states; create a neutral 1200×630 public/og.png
-from the finished design and wire metadata; replace the icon; generate gallery captures and validate;
-confirm domain/Pages settings and HTTPS; remove `plan/` and `.claude/skills/` after review. The website must not import or
-link the planning folder. No stock screenshot or OG image is supplied as if it were final.
+`public/og.png` (1200×630) is composed from the site's own artwork: the featured thali plate on a
+block-printed cloth under monsoon rain, with the wordmark. Regenerate it if the name or featured thali
+changes. Before publication: confirm domain/Pages settings and HTTPS, and remove `plan/` and
+`.claude/skills/` after review. The website never imports or links the planning folder.

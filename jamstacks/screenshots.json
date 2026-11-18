@@ -1,0 +1,22 @@
+{
+  "templateId": "next-indian-spice",
+  "viewport": {
+    "width": 1440,
+    "height": 900
+  },
+  "fullPage": false,
+  "captures": [
+    {
+      "mode": "light",
+      "sha256": "49bf179b013db2764bc0af4039ade38562cdf1a26c3311efa1c6075a6814b224",
+      "file": "jamstacks/home-light.jpg",
+      "bytes": 310888
+    },
+    {
+      "mode": "dark",
+      "sha256": "403706476a99358e1ac6ffff74be1173f5ddcecd94b75a5de491738666cd09e1",
+      "file": "jamstacks/home-dark.jpg",
+      "bytes": 300714
+    }
+  ]
+}
